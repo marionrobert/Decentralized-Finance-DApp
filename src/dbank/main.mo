@@ -7,12 +7,14 @@ actor DBank {
 
   // stable var >> orthogonal persistance (by default, a variable is flexible)
   stable var currentValue: Float = 300;
-  // currentValue := 300;
+  currentValue := 300;
+  // Debug.print(string), add debug_show for numbers
+  Debug.print(debug_show(currentValue));
 
   stable var startTime = Time.now();
+  startTime := Time.now();
+  Debug.print(debug_show(startTime));
 
-  // Debug.print(string), add debug_show for numbers
-  // Debug.print(debug_show(currentValue));
 
   let id = 85478512612;
   // Debug.print(debug_show(id));
@@ -22,11 +24,11 @@ actor DBank {
 
   public func topUp(amount: Float){
     currentValue += amount;
-    Debug.print(debug_show(currentValue));
+    // Debug.print(debug_show(currentValue));
   };
 
   // Allow users to withdraw an amount from the currentValue
-  public func withdrawl(amount: Float){
+  public func withdraw(amount: Float){
     let tempValue: Float = currentValue - amount;
     if (tempValue >= 0) {
       currentValue -= amount;
