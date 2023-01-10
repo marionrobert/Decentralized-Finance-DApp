@@ -13,6 +13,9 @@ actor DBank {
   let id = 85478512612;
   // Debug.print(debug_show(id));
 
+
+  // UPDATE FUNCTIONS = fonctions de MAJ, modif d'une variable, de l'état de qqch
+
   public func topUp(amount: Nat){
     currentValue += amount;
     Debug.print(debug_show(currentValue));
@@ -28,7 +31,12 @@ actor DBank {
     } else {
       Debug.print("The amount you've entered is greater than the money in the bank");
     }
-  }
+  };
+
+  // QUERY FUNCTIONS (requêtes): lecture d'une donnée = exécution plque rapide que les functions de MAJ
+  public query func checkBalance(): async Nat {
+    return currentValue;
+  };
 
   // topUp();
 };
