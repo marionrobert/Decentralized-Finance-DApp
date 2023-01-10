@@ -2,9 +2,10 @@ import Debug "mo:base/Debug";
 
 // create an actor (contains canister) in motoko = create a class 
 actor DBank {
-  // current money in bank 
-  var currentValue = 300;
-  currentValue := 100;
+  // by default, all variables are flexible
+  // stable var --> orthogonal persistance
+  stable var currentValue = 300;
+  // currentValue := 100;
 
   // Debug.print(string)
   // but to print a number, add debug_show
