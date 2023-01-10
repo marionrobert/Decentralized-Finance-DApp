@@ -1,2 +1,4 @@
 service : {
+  Down: (nat) -> () oneway;
+  topUp: (nat) -> () oneway;
 }
