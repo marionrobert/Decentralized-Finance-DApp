@@ -1,5 +1,4 @@
-actor {
-  public func greet(name : Text) : async Text {
-    return "Hello, " # name # "!";
-  };
+// create a container in motoko = create a class 
+actor DBank {
+  var currentValue = 300;
 };
