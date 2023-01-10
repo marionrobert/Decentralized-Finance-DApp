@@ -1,31 +1,33 @@
 import Debug "mo:base/Debug";
+import Time "mo:base/Time";
+import Float "mo:base/Float";
 
 // create an actor (contains canister) in motoko = create a class 
 actor DBank {
-  // by default, all variables are flexible
-  // stable var --> orthogonal persistance
-  stable var currentValue = 300;
-  // currentValue := 100;
 
-  // Debug.print(string)
-  // but to print a number, add debug_show
-  Debug.print(debug_show(currentValue));
+  // stable var >> orthogonal persistance (by default, a variable is flexible)
+  stable var currentValue: Float = 300;
+  // currentValue := 300;
+
+  stable var startTime = Time.now();
+
+  // Debug.print(string), add debug_show for numbers
+  // Debug.print(debug_show(currentValue));
 
   let id = 85478512612;
   // Debug.print(debug_show(id));
 
 
-  // UPDATE FUNCTIONS = fonctions de MAJ, modif d'une variable, de l'état de qqch
+  // UPDATE FUNCTIONS = fonctions de MAJ -> modif de l'état de qqch
 
-  public func topUp(amount: Nat){
+  public func topUp(amount: Float){
     currentValue += amount;
     Debug.print(debug_show(currentValue));
   };
 
   // Allow users to withdraw an amount from the currentValue
-  // Decrease the currentValue by the amount
-  public func withdrawl(amount: Nat){
-    let tempValue: Int = currentValue - amount;
+  public func withdrawl(amount: Float){
+    let tempValue: Float = currentValue - amount;
     if (tempValue >= 0) {
       currentValue -= amount;
       Debug.print(debug_show(currentValue));
@@ -35,9 +37,17 @@ actor DBank {
   };
 
   // QUERY FUNCTIONS (requêtes): lecture d'une donnée = exécution plque rapide que les functions de MAJ
-  public query func checkBalance(): async Nat {
+  public query func checkBalance(): async Float {
     return currentValue;
   };
 
-  // topUp();
+  
+  public func compound() {
+    let currentTime = Time.now();
+    let timeElapsedNS = currentTime - startTime;
+    let timeElapsedS = timeElapsedNS / 1000000000;
+    currentValue := currentValue * (1.01 ** Float.fromInt(timeElapsedS));
+    startTime := currentTime;
+  };
+
 };
