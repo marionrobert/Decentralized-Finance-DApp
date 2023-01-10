@@ -21,8 +21,13 @@ actor DBank {
   // Allow users to withdraw an amount from the currentValue
   // Decrease the currentValue by the amount
   public func withdrawl(amount: Nat){
-    currentValue -= amount;
-    Debug.print(debug_show(currentValue));
+    let tempValue: Int = currentValue - amount;
+    if (tempValue >= 0) {
+      currentValue -= amount;
+      Debug.print(debug_show(currentValue));
+    } else {
+      Debug.print("The amount you've entered is greater than the money in the bank");
+    }
   }
 
   // topUp();
